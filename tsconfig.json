@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "target": "es2022",
+        "resolveJsonModule": true,
+        "module": "node16",
+        "sourceMap": true,
+        "lib": [
+            "es2023"
+        ],
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "moduleResolution": "node16",
+        "outDir": "dist",
+        "declaration": true
+    },
+    "include": [
+        "src"
+    ],
+    "exclude": [
+        "node_nodules"
+    ]
+}
