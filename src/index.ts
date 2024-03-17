@@ -1,4 +1,6 @@
 import Fastify from 'fastify'
+import closeWithGrace from 'close-with-grace'
+import type { CloseWithGraceCallback } from 'close-with-grace'
 
 const app = Fastify({
     logger: process.env.NODE_ENV === 'development' ? {
@@ -21,5 +23,10 @@ const run = async () => {
         process.exit(1)
     }
 }
+
+closeWithGrace(function (opts, cb) {
+    app.log.info(opts.signal, 'server closing')
+    app.close(cb)
+} as CloseWithGraceCallback)
 
 run()
