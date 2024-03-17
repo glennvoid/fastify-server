@@ -6,14 +6,16 @@
         "resolveJsonModule": true,
         "module": "node16",
         "sourceMap": true,
+        "moduleDetection": "force",
         "lib": [
             "es2023"
         ],
         "strict": true,
+        "verbatimModuleSyntax": true, // import type
         "forceConsistentCasingInFileNames": true,
         "moduleResolution": "node16",
         "outDir": "dist",
-        "declaration": true
+        "declaration": true,
     },
     "include": [
         "src"
