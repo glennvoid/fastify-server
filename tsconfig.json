@@ -16,6 +16,8 @@
         "moduleResolution": "node16",
         "outDir": "dist",
         "declaration": true,
+        "allowImportingTsExtensions": true,
+        "emitDeclarationOnly": true
     },
     "include": [
         "src"
