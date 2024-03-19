@@ -14,17 +14,16 @@ const app = Fastify({
     } : true
 })
 
-
 const run = async () => {
     try {
-        await app.listen({ port: 3000 })
+        await app.listen({ port: process.env.PORT })
     } catch (error) {
         app.log.error(error)
         process.exit(1)
     }
 }
 
-closeWithGrace(function (opts, cb) {
+closeWithGrace({ delay: 500 }, function (opts, cb) {
     app.log.info(opts.signal, 'server closing')
     app.close(cb)
 } as CloseWithGraceCallback)
