@@ -1,10 +1,10 @@
-import type { FastifyPluginAsync } from 'fastify';
+import type { FastifyPluginCallback } from 'fastify';
 import type { Mongoose, MongooseOptions } from 'mongoose';
 import mongoose from "mongoose";
 import fp from 'fastify-plugin'
 
 declare module 'fastify' {
-    interface fastifyInstance {
+    interface FastifyInstance {
         mongoose: Mongoose
     }
 }
@@ -13,8 +13,7 @@ export interface Options {
     url: string,
 }
 
-const mongoosePlugin: FastifyPluginAsync<Options> = async (instance, options) => {
-
+const MongoosePlugin: FastifyPluginCallback<Options> = (instance, options, done) => {
     instance.addHook('onListen', async () => {
         try {
             await mongoose.connect(options.url)
@@ -35,6 +34,11 @@ const mongoosePlugin: FastifyPluginAsync<Options> = async (instance, options) =>
     instance.addHook('onClose', async () => {
         await mongoose.disconnect()
     });
+
+    done()
 }
 
-export default fp(mongoosePlugin, "4.x")
+export default fp(MongoosePlugin, {
+    fastify: '4.x',
+    name: 'mongoose-plugin'
+})
