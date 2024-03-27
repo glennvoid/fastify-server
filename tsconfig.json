@@ -1,23 +1,22 @@
 {
     "compilerOptions": {
+        "target": "ES2022",
+        "module": "CommonJS",
+        "moduleResolution": "Node",
+        "outDir": "dist",
+        "strict": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
-        "target": "es2022",
         "resolveJsonModule": true,
-        "module": "node16",
         "sourceMap": true,
         "moduleDetection": "force",
         "lib": [
-            "es2023"
+            "ES2022",
+            "ESNext.AsyncIterable"
         ],
-        "strict": true,
-        "verbatimModuleSyntax": true, // import type
+        // "verbatimModuleSyntax": true, // import type
         "forceConsistentCasingInFileNames": true,
-        "moduleResolution": "node16",
-        "outDir": "dist",
         "declaration": true,
-        "allowImportingTsExtensions": true,
-        "emitDeclarationOnly": true
     },
     "include": [
         "src"

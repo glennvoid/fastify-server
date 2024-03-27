@@ -1,5 +1,5 @@
-import type { FastifyPluginCallback } from 'fastify';
-import type { Mongoose, MongooseOptions } from 'mongoose';
+import type { FastifyPluginAsync } from 'fastify';
+import type { Mongoose } from 'mongoose';
 import mongoose from "mongoose";
 import fp from 'fastify-plugin'
 
@@ -13,7 +13,7 @@ export interface Options {
     url: string,
 }
 
-const MongoosePlugin: FastifyPluginCallback<Options> = (instance, options, done) => {
+const MongoosePlugin: FastifyPluginAsync<Options> = async (instance, options) => {
     instance.addHook('onListen', async () => {
         try {
             await mongoose.connect(options.url)
@@ -22,12 +22,12 @@ const MongoosePlugin: FastifyPluginCallback<Options> = (instance, options, done)
         }
     })
 
-    mongoose.connection.on('connected', () => instance.log.info('connected'));
-    mongoose.connection.on('open', () => instance.log.info('open'));
-    mongoose.connection.on('disconnecting', () => instance.log.info('disconnecting'));
-    mongoose.connection.on('disconnected', () => instance.log.info('disconnected'));
-    mongoose.connection.on('reconnected', () => instance.log.info('reconnected'));
-    mongoose.connection.on('close', () => instance.log.info('close'));
+    mongoose.connection.on('connected', () => instance.log.info('Mongoose database is connected'));
+    mongoose.connection.on('open', () => instance.log.info('Mongoose connection is open'));
+    mongoose.connection.on('disconnecting', () => instance.log.info('Mongoose database is disconnecting'));
+    mongoose.connection.on('disconnected', () => instance.log.info('Mongoose database is disconnected'));
+    mongoose.connection.on('reconnected', () => instance.log.info('Mongoose database is reconnected'));
+    mongoose.connection.on('close', () => instance.log.info('Mongoose connection is close'));
 
     instance.decorate('mongoose', mongoose);
 
@@ -35,7 +35,6 @@ const MongoosePlugin: FastifyPluginCallback<Options> = (instance, options, done)
         await mongoose.disconnect()
     });
 
-    done()
 }
 
 export default fp(MongoosePlugin, {
